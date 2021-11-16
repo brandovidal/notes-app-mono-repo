@@ -19,3 +19,15 @@ Run Test
 ```
 npm run test
 ```
+
+Run Test Integration
+
+```
+npm run cypress:open
+```
+
+Run Test E2E
+
+```
+npm run test:e2e
+```
