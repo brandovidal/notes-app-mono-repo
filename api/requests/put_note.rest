@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/notes/61733ba1b4c960306e011752
+Content-Type: application/json
+ 
+{
+    "content": "dale LIKE y comparte",
+    "important": false
+}

@@ -1,0 +1,15 @@
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNzc5NGQ3ODlkZTJlYmUwNjk0NzU1MSIsInVzZXJuYW1lIjoibWlkdWRldiIsImlhdCI6MTYzNTMxNTg5NywiZXhwIjoxNjM1OTIwNjk3fQ.FAqfM_LiV5w2WhT2mhRw3oTN7_5YM-Q22YyDI-F1t_Y
+
+{
+    "content": "Usando middleware para generar token 🎉",
+    "important": true
+}
+
+###
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+}
