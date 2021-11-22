@@ -1,53 +1,37 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+
+import Notes from './Notes'
 
 const Home = () => <h1>Home</h1>
-
-const Notes = () => <h1>Notes</h1>
 
 const Users = () => <h1>Users</h1>
 
 const inlineStyles = {
-  padding: '10px'
+  padding: 5
 }
 
 const App = () => {
-  const [page, setPage] = useState(() => {
-    const { pathname } = window.location
-    const page = pathname.slice(1)
-    return page
-  })
-  const getContent = () => {
-    if (page === 'users') {
-      return <Users />
-    } else if (page === 'notes') {
-      return <Notes />
-    } else {
-      return <Home />
-    }
-  }
-
-  const toPage = (page) => (event) => {
-    event.preventDefault()
-
-    window.history.pushState(null, '', `/${page}`)
-    setPage(page)
-  }
-
   return (
-    <div>
+    <BrowserRouter>
       <header>
-        <a href='#' onClick={toPage('home')} style={inlineStyles}>
+        <Link to='/' style={inlineStyles}>
           Home
-        </a>
-        <a href='#' onClick={toPage('notes')} style={inlineStyles}>
+        </Link>
+        <Link to='/notes' style={inlineStyles}>
           Notes
-        </a>
-        <a href='#' onClick={toPage('users')} style={inlineStyles}>
+        </Link>
+        <Link to='/users' style={inlineStyles}>
           Users
-        </a>
+        </Link>
       </header>
-      {getContent()}
-    </div>
+
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/notes' element={<Notes />} />
+        <Route path='/users' element={<Users />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
