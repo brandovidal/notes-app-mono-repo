@@ -5,10 +5,12 @@ function NoteDetail ({ notes }) {
   const note = notes.find((note) => note.id === noteId)
   console.log({ note })
 
+  if (!note) return null
+
   return (
     <div>
       <h2>{note.content}</h2>
-      <div>{note?.user?.username}</div>
+      <div>{note?.user?.name}</div>
       <div>
         <strong>{note.important ? 'important' : ''}</strong>
       </div>
