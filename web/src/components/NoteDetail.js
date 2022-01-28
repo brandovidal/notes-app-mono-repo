@@ -1,6 +1,6 @@
 import { useParams } from 'react-router'
 
-function NoteDetail ({ notes }) {
+const NoteDetail = ({ notes }) => {
   const { noteId } = useParams()
   const note = notes.find((note) => note.id === noteId)
   console.log({ note })

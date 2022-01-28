@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import React from 'react'
+import { BrowserRouter, Link, Route, Routes, Navigate } from 'react-router-dom'
 
-import noteService from './services/notes'
+import { useUser } from './hooks/useUser'
+import { useNotes } from './hooks/useNotes'
 
 import Notes from './Notes'
+import Login from './Login'
+
 import NoteDetail from './components/NoteDetail'
 
 const Home = () => <h1>Home</h1>
@@ -14,14 +17,16 @@ const inlineStyles = {
   padding: 5
 }
 
-const App = () => {
-  const [notes, setNotes] = useState([])
+const RequireAuth = ({ children, user }) => {
+  if (user !== null) {
+    return <Navigate replace to='/' />
+  }
+  return children
+}
 
-  useEffect(() => {
-    noteService.getAll().then((initialNotes) => {
-      setNotes(initialNotes)
-    })
-  }, [])
+const App = () => {
+  const { user } = useUser()
+  const { notes } = useNotes()
 
   return (
     <BrowserRouter>
@@ -35,6 +40,15 @@ const App = () => {
         <Link to='/users' style={inlineStyles}>
           Users
         </Link>
+        {user
+          ? (
+            <em>Logged as {user.name}</em>
+            )
+          : (
+            <Link to='/login' style={inlineStyles}>
+              Login
+            </Link>
+            )}
       </header>
 
       <Routes>
@@ -42,6 +56,14 @@ const App = () => {
         <Route path='/notes' element={<Notes />} />
         <Route path='/notes/:noteId' element={<NoteDetail notes={notes} />} />
         <Route path='/users' element={<Users />} />
+        <Route
+          path='/login'
+          element={
+            <RequireAuth user={user}>
+              <Login />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </BrowserRouter>
   )
