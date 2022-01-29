@@ -3,15 +3,15 @@ import propTypes from 'prop-types'
 
 const NO_OP = () => {}
 
-const LoginForm = ({ username = '', password = '', handleUsernameChange, handlePasswordChange, handleSubmit = NO_OP }) => {
+const LoginForm = ({ handleSubmit = NO_OP, ...props }) => {
   return (
     <form data-test-id='login-form' onSubmit={handleSubmit}>
       <div>
-        <input type='text' value={username} name='username' onChange={handleUsernameChange} placeholder='Username' />
+        <input type='text' value={props.username} name='Username' placeholder='Username' onChange={props.handleUsernameChange} />
       </div>
 
       <div>
-        <input type='password' value={password} name='password' onChange={handlePasswordChange} placeholder='Password' />
+        <input type='password' value={props.password} name='Password' placeholder='Password' onChange={props.handlePasswordChange} />
       </div>
       <button>Login</button>
     </form>

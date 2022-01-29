@@ -16,12 +16,17 @@ export const useUser = () => {
   }, [])
 
   const login = async ({ username, password }) => {
-    const user = await loginService.login({ username, password })
+    const user =
+      (await loginService.login({ username, password }).catch((e) => {
+        console.log('error', e)
+      })) || null
 
-    window.localStorage.setItem('loggedNoteAppUser', JSON.stringify(user))
-    noteService.setToken(user.token)
-
-    setUser(user)
+    if (user) {
+      window.localStorage.setItem('loggedNoteAppUser', JSON.stringify(user))
+      noteService.setToken(user.token)
+      setUser(user)
+    }
+    return user
   }
 
   const logout = () => {

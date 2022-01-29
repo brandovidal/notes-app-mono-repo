@@ -18,16 +18,24 @@ const Login = () => {
     event.preventDefault()
 
     try {
-      login({ username, password })
-      setUsername('')
-      setPassword('')
+      console.log({ username, password })
+      const isLogin = await login({ username, password })
 
-      navigate('/notes')
+      if (!isLogin) {
+        setErrorMessage('Wrong credentials')
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 2000)
+      } else {
+        setUsername('')
+        setPassword('')
+        navigate('/notes')
+      }
     } catch (e) {
       setErrorMessage('Wrong credentials')
       setTimeout(() => {
         setErrorMessage(null)
-      }, 5000)
+      }, 2000)
     }
   }
 
