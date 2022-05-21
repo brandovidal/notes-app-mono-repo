@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+// const path = require('path')
 
 require('dotenv').config()
 require('./mongo')
@@ -42,6 +43,12 @@ if (process.env.NODE_ENV === 'test') {
 app.use(notFound)
 app.use(Sentry.Handlers.errorHandler())
 app.use(handleErrors)
+
+// app.get('/*', function (req, res) {
+//   // res.sendFile(path.join(__dirname, 'web', 'build', 'index.html'))
+//   res.sendFile(path.join(__dirname, 'web', 'build', 'index.html'))
+//   // res.sendFile(path.resolve(__dirname + '../web/build/index.html'))
+// })
 
 // Listen server
 const PORT = process.env.PORT || 3001
